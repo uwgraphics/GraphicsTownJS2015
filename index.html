@@ -1,5 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
+<!-- Graphics town framework code by Mike Gleicher
+  -- written October, 2015
+  -->
 <head>
     <meta charset="UTF-8">
     <title>GraphicsTown JS 2015!</title>
@@ -10,21 +13,31 @@
 <script src="Libraries/panel.js"></script>
 <script src="Libraries/arcball.js"></script>
 <script src="grobject.js"></script>
+<script src="ExampleObjects/ground.js"></script>
 
 <!-- This is where we load the objects for the world -->
 <script src="ExampleObjects/simplest.js"></script>
-<script src="ExampleObjects/cube.js"></script>
-<script src="ExampleObjects/ground.js"></script>
 <script src="ExampleObjects/texturedplane.js"></script>
+<script src="ExampleObjects/cube.js"></script>
+
+<!-- I am adding the helicopter -->
+<script src="Helicopter/helicopter.js"></script>
 
 <!-- This gets loaded LAST (actually, it probably doesn't have to) -->
 <script src="graphicstown.js"></script>
 </body>
 
+<!-- all of the shaders get stuck here in the HTML because
+  -- that's the only way I know to load them without either
+  -- sticking them in JavaScript strings, or using a web server
+  -->
 
 <script id="cube-vs" type="notjs">
 // specialized shader for the simple cube
-// no model matrix
+// we assume that the model matrix works as the normal
+//      matrix - this only is try if the model matrix
+//      it a rotate/translate
+//      (uniform scale is OK since we re-normalize)
 // color is solid
 // simple lighting
     precision highp float;
@@ -48,7 +61,9 @@
     }
 </script>
 <script id="cube-fs" type="notjs">
-    // note this is used for more than just the cube
+// simple shader that does vertex coloring
+//  (e.g. the vertex shader figures the lighting
+// note this is used for more than just the cube
     precision highp float;
     varying vec3 outColor;
     void main(void) {
@@ -56,6 +71,9 @@
     }
 </script>
 
+<!-- Special Ground Plane Shader - makes a boring
+  -- checkerboard
+  -->
 <script id="ground-vs" type="not-js">
     precision highp float;
 

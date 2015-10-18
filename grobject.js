@@ -22,6 +22,7 @@
  it also provides the specifcaton for what the drawing state object will look like
  **/
 
+var grobjects =[];
 
 // GrObject - a GrObject must have the following:
 //
@@ -69,3 +70,17 @@ fields defined:
    at night, it will be from "under ground". so basically, from 6pm to 6am, you should turn off sunlight
 
  */
+
+
+//
+// utility routines
+// find an object with a particular name
+function findObj(name) {
+    var rv = null;
+    grobjects.forEach(function(obj) {
+        if (obj.name == name) {
+            rv = obj;
+        }
+    });
+    return rv;
+};

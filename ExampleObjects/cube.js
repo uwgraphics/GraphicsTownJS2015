@@ -19,6 +19,10 @@
  */
 var grobjects = grobjects || [];
 
+// allow the two constructors to be "leaked" out
+var Cube = undefined;
+var SpinningCube = undefined;
+
 // this is a function that runs at loading time (note the parenthesis at the end)
 (function() {
     "use strict";
@@ -30,7 +34,7 @@ var grobjects = grobjects || [];
     var buffers = undefined;
 
     // constructor for Cubes
-    function Cube(name, position, size, color) {
+    Cube = function Cube(name, position, size, color) {
         this.name = name;
         this.position = position || [0,0,0];
         this.size = size || 1.0;
@@ -82,15 +86,10 @@ var grobjects = grobjects || [];
         return this.position;
     }
 
-    //grobjects.push(new Cube("cube0") );
-    grobjects.push(new Cube("cube 1",[-2,0.5,   0],1) );
-    grobjects.push(new Cube("cube 2",[ 2,0.5,   0],1, [1,1,0]));
-    grobjects.push(new Cube("cube 3",[ 0, 0.5, -2],1 , [0,1,1]));
-    grobjects.push(new Cube("cube 4",[ 0,0.5,   2],1));
 
     ////////
     // constructor for Cubes
-    function SpinningCube(name, position, size, color, axis) {
+    SpinningCube = function SpinningCube(name, position, size, color, axis) {
         Cube.apply(this,arguments);
         this.axis = axis || 'X';
     }
@@ -119,10 +118,20 @@ var grobjects = grobjects || [];
     SpinningCube.prototype.center = function(drawingState) {
         return this.position;
     }
-    grobjects.push(new SpinningCube("scube 1",[-2,0.5, -2],1) );
-    grobjects.push(new SpinningCube("scube 2",[-2,0.5,  2],1,  [1,0,0], 'Y'));
-    grobjects.push(new SpinningCube("scube 3",[ 2,0.5, -2],1 , [0,0,1], 'Z'));
-    grobjects.push(new SpinningCube("scube 4",[ 2,0.5,  2],1));
 
 
 })();
+
+// put some objects into the scene
+// normally, this would happen in a "scene description" file
+// but I am putting it here, so that if you want to get
+// rid of cubes, just don't load this file.
+grobjects.push(new Cube("cube1",[-2,0.5,   0],1) );
+grobjects.push(new Cube("cube2",[ 2,0.5,   0],1, [1,1,0]));
+grobjects.push(new Cube("cube3",[ 0, 0.5, -2],1 , [0,1,1]));
+grobjects.push(new Cube("cube4",[ 0,0.5,   2],1));
+
+grobjects.push(new SpinningCube("scube 1",[-2,0.5, -2],1) );
+grobjects.push(new SpinningCube("scube 2",[-2,0.5,  2],1,  [1,0,0], 'Y'));
+grobjects.push(new SpinningCube("scube 3",[ 2,0.5, -2],1 , [0,0,1], 'Z'));
+grobjects.push(new SpinningCube("scube 4",[ 2,0.5,  2],1));
