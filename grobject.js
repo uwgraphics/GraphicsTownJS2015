@@ -56,6 +56,8 @@ fields defined:
    note: because the view transform is a rotate, translate, uniform scale,
    it can be used to transform normals if desired
     (personally, I prefer to do lighting computations in world space)
+ camera - the camera transform: this is the inverse of the view
+   transform (it goes from the camera coordinates to world coords)
  proj - the projection matrix
 
  Things for animating:

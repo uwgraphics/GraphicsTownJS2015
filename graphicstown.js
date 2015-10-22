@@ -90,6 +90,7 @@ window.onload = function() {
         gl : gl,
         proj : twgl.m4.identity(),
         view : twgl.m4.identity(),
+        camera : twgl.m4.identity(),
         sunDirection : [0,1,0]
     }
     
@@ -209,6 +210,7 @@ window.onload = function() {
             gl : gl,
             proj : projM,   // twgl.m4.identity(),
             view : viewM,   // twgl.m4.identity(),
+            camera : cameraM,
             timeOfDay : tod,
             sunDirection : sunDirection,
             realtime : realtime
